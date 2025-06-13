@@ -88,7 +88,7 @@ const patentSlice = createSlice({
 });
 
 // ChatBox API COHERE
-console.log('process.env.REACT_APP_API_URL :>> ', process.env.REACT_APP_API_URL);
+console.log('process.env.REACT_APP_API_URL :>> ', `${process.env.REACT_APP_API_URL}/api/chatbox/chat`); 
 export const retrieveChatBoxData = async (message, dispatch) => {
   try {
     // const response = await axios.post('http://localhost:8080/api/chatbox/chat', { message: message });
