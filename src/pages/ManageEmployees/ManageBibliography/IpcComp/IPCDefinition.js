@@ -852,7 +852,7 @@ const IPCDefinition = () => {
 
 
             const commaSeparated = classCodes.join(',');
-            const response = await axios.get(`http://localhost:8080/api/ipc-definition/${encodeURIComponent(commaSeparated)}`);
+            const response = await axios.get(`https://mc-user-tool.onrender.com/api/ipc-definition/${encodeURIComponent(commaSeparated)}`);
 
             const rootItem = response.data?.definition?.['world-patent-data']?.['classification-scheme']?.['cpc']?.['class-scheme']?.['classification-item'];
             const params = response.data?.param || [];
