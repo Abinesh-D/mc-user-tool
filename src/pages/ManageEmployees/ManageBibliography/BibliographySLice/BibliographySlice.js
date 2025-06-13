@@ -88,9 +88,11 @@ const patentSlice = createSlice({
 });
 
 // ChatBox API COHERE
+console.log('process.env.REACT_APP_API_URL :>> ', process.env.REACT_APP_API_URL);
 export const retrieveChatBoxData = async (message, dispatch) => {
   try {
-    const response = await axios.post('http://localhost:8080/api/chatbox/chat', { message: message });
+    // const response = await axios.post('http://localhost:8080/api/chatbox/chat', { message: message });
+    const response = await axios.post(`${process.env.REACT_APP_API_URL}/api/chatbox/chat`, { message: message });
 
 
     console.log(response, 'responsefor chat')
@@ -109,7 +111,10 @@ export const retrieveClassificationData = async (classifyNumber, dispatch, setSh
 
   try {
     if (!classifyNumber) throw new Error("Patent number is required.");
-    const response = await axios.get(`http://localhost:8080/api/ipc-definition/${classifyNumber}`);
+    const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/ipc-definition/${classifyNumber}`);
+    // const response = await axios.get(`http://localhost:8080/api/ipc-definition/${classifyNumber}`);
+
+
     // const response = await axios.get(`http://localhost:8080/cpc/classify/${classifyNumber}`);
     
 
@@ -136,7 +141,8 @@ export const retrieveEspacePatentData = async (patentNumber, dispatch, setShowAl
     const trimmedNumber = patentNumber.trim();
     if (!trimmedNumber) throw new Error("Patent number is required.");
 
-    const response = await axios.get(`http://localhost:8080/api/espacenet/${trimmedNumber}`);
+    const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/espacenet/${trimmedNumber}`);
+    // const response = await axios.get(`http://localhost:8080/api/espacenet/${trimmedNumber}`);
 
     console.log('retrieveEspacePatentData', response.data);
 
@@ -161,7 +167,10 @@ export const retrieveEspacePatentData = async (patentNumber, dispatch, setShowAl
 export const retrieveLensPatentData = (patentNumber, dispatch, setShowAlert) => {
   return new Promise(async (resolve, reject) => {
     try {
-      const res = await axios.post('http://localhost:8080/api/lens/get-patent-data', {
+      const res = await axios.post(`${process.env.REACT_APP_API_URL}/api/lens/get-patent-data`, {
+      // const res = await axios.post('http://localhost:8080/api/lens/get-patent-data', {
+
+
         patentNumber: patentNumber.trim()
       });
       console.log('res.data :>> ', res.data);
@@ -184,7 +193,8 @@ export const retrieveLensPatentData = (patentNumber, dispatch, setShowAlert) => 
 
 export const fetchGooglePatentData = async (patentNumber, dispatch) => {
   try {
-    const response = await axios.get(`http://localhost:8080/patent/${patentNumber.trim()}`);
+    const response = await axios.get(`${process.env.REACT_APP_API_URL}/patent/${patentNumber.trim()}`);
+    // const response = await axios.get(`http://localhost:8080/patent/${patentNumber.trim()}`);
 
     console.log('fetchGooglePatentData', response.data);
     dispatch(setGoogleApiData(response.data));
@@ -201,7 +211,8 @@ export const fetchESPData = async (patentNumber, dispatch, type) => {
     const trimmedNumber = patentNumber.trim();
     if (!trimmedNumber) throw new Error("Patent number is required.");
 
-    const response = await axios.get(`http://localhost:8080/esp/patentdata/${trimmedNumber}`);
+    const response = await axios.get(`${process.env.REACT_APP_API_URL}/esp/patentdata/${trimmedNumber}`);
+    // const response = await axios.get(`http://localhost:8080/esp/patentdata/${trimmedNumber}`);
 
     console.log('fetchESPData', response.data);
 
@@ -232,7 +243,8 @@ export const fetchLegalStatusData = async (patentNumber, dispatch) => {
   try {
     if (!patentNumber) throw new Error("Patent number is required.");
 
-    const response = await axios.get(`http://localhost:8080/esp/legalStatus/${patentNumber}`);
+    const response = await axios.get(`${process.env.REACT_APP_API_URL}/esp/legalStatus/${patentNumber}`);
+    // const response = await axios.get(`http://localhost:8080/esp/legalStatus/${patentNumber}`);
 
     if (response.status === 200 && response.data) {
       dispatch(setFetchLegalStatus(response.data));
